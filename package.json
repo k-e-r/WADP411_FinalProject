@@ -14,9 +14,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI= react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "homepage": "https://k-e-r.github.io/WADP411_FinalProject/build/"
   },
   "eslintConfig": {
     "extends": "react-app"

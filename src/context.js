@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useState, useContext, useEffect } from 'react';
 
 const table = {
-  sports: 21,
-  history: 23,
-  politics: 24,
+  // sports: 21,
+  // history: 23,
+  entertainment: 'manga',
 };
 
-const API_ENDPOINT = 'https://opentdb.com/api.php?';
+// const API_ENDPOINT = 'https://opentdb.com/api.php?';
+const API_ENDPOINT = 'https://0228-final-project.can.canonic.dev/api/';
 
 const url = '';
 const tempUrl =
@@ -28,18 +29,15 @@ const AppProvider = ({ children }) => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const fetchQuestions = async (url) => {
+  const fetchQuestions = async (url, amount, difficulty) => {
     setLoading(true);
     setWaiting(false);
-    // const response2 = await axios(url).catch((err) => console.log(err));
-    const response = await axios(
-      `https://0228-1615-pro1.can.canonic.dev/api/test022801s`
-    ).catch((err) => console.log(err));
+    const response = await axios(url).catch((err) => console.log(err));
     if (response) {
       // const data = response.data.results;
-      const data = response.data.data;
-      // console.log(data);
-      // console.log(response2.data.results);
+      let data = response.data.data[0][difficulty];
+      data = data.slice(0, amount);
+      console.log(data);
       if (data.length > 0) {
         setQuestions(data);
         setLoading(false);
@@ -89,8 +87,10 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     const { amount, category, difficulty } = quiz;
 
-    const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
-    fetchQuestions(url);
+    // const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
+    const url = `${API_ENDPOINT}${table[category]}`;
+    // fetchQuestions(url);
+    fetchQuestions(url, amount, difficulty);
   };
 
   return (
